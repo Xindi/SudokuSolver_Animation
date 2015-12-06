@@ -15,7 +15,7 @@ var easy_boards = [
 
 function brute_force(board) {
     var dimension = board.length;
-    for (row = 0; i < dimension; row++) { 
+    for (row = 0; row < dimension; row++) { 
     	for (col = 0; col < dimension; col++) {
     		if (board[row][col] == ".") {
     			for (i = 1; i < dimension+1; i++) {
