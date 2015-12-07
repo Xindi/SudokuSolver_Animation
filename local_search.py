@@ -64,6 +64,7 @@ def list_unique_elements(l):
             count += 1
     return count
 
+''' returns the score of current board state '''
 def get_score(board):
     dimension = len(board)
     score = 0
@@ -78,40 +79,41 @@ def get_score(board):
         score -= list_unique_elements(l)
     return score
 
+''' calculates the probability of accepting the new state '''
 def acceptance_prob(energy, new_energy, temperature):
     if new_energy < energy:
         return 1.0
     return exp( float(energy - new_energy) / temperature )
 
-def get_new_state(board, init_dict):
+''' get the coordinates of the n-th subsquare '''
+def get_square_pos(board, n, s_dim, init_dict):
+    result = []
+    rStart = (n / s_dim) * s_dim
+    cStart = (n % s_dim) * s_dim
+    for row in range(rStart, rStart+3):
+        for col in range(cStart, cStart+3):
+            if not is_init_populated(init_dict, row, col):
+                result.append(tuple((row, col)))
+    return result
+
+''' randomly picks a subsquare and picks two positions within 
+the subsquare that were not originally populated in the initial
+state, and swap the values of the two positions ''' 
+def get_new_state(board, init_dict, s_dim):
     new_board = deepcopy(board)
     dim = len(board)
     square = random.randint(0,8)
-    lower = square * dim
-    upper = (square + 1) * dim - 1
 
-    rand_pos1 = random.randint(lower, upper)
-    rowcol1 = divmod(rand_pos1, dim)
-    while is_init_populated(init_dict, rowcol1[0], rowcol1[1]):
-        rand_pos1 = random.randint(lower, upper)
-        rowcol1 = divmod(rand_pos1, dim)
-    #print rand_pos1
-
-    rand_pos2 = random.randint(lower, upper)
-    rowcol2 = divmod(rand_pos2, dim)
-    while rand_pos2 == rand_pos1 or is_init_populated(init_dict, rowcol2[0], rowcol2[1]):
-        rand_pos2 = random.randint(lower, upper)
-        rowcol2 = divmod(rand_pos2, dim)
-    #print rand_pos2
+    square_pos = get_square_pos(board, square, s_dim, init_dict)
+    (rowcol1, rowcol2) = random.sample(square_pos, 2)
 
     temp = new_board[rowcol1[0]][rowcol1[1]]
     new_board[rowcol1[0]][rowcol1[1]] = new_board[rowcol2[0]][rowcol2[1]]
     new_board[rowcol2[0]][rowcol2[1]] = temp
 
-    #print_board(new_board)
     return new_board
 
-def simulated_annealing(board):
+def simulated_annealing(board, s_dim, states):
     dim = len(board)
     init_dict = init_board_to_dict(board)
 
@@ -124,23 +126,22 @@ def simulated_annealing(board):
     count = 0
 
     cooling_rate = 0.00001
-    T = 0.5
+    T = 0.4
     while count < 400000:
-        new_board = get_new_state(cur_board, init_dict)
+        new_board = get_new_state(cur_board, init_dict, s_dim)
         new_score = get_score(new_board)
         delta_S = float(cur_score - new_score)
-        print new_score
 
-        #if (acceptance_prob(cur_score, new_score, T) > random.random()):
-        if (exp((delta_S/T)) - random.random() > 0):
+        if (acceptance_prob(cur_score, new_score, T) > random.random()):
             cur_board = new_board
             cur_score = new_score
+            states.append( deepcopy(new_board) )
         
         if cur_score < best_score:
             best_state = deepcopy(cur_board)
             best_score = cur_score
 
-        if cur_score == -2*dim*dim:
+        if new_score == -2*dim*dim:
             cur_board = new_board
             break
 
@@ -149,13 +150,11 @@ def simulated_annealing(board):
 
     return best_state if best_score == -2*dim*dim else None
 
-
 if __name__ == '__main__':
     board = easy_boards[0]
     print_board(board)
-    # result = simulated_annealing(board) 
-    # print_board(result)
-    result = []
-    brute_force(board, result)
-    print result
-
+    init_dict = init_board_to_dict(board)
+    states = []
+    result = simulated_annealing(board, 3, states)
+    print_board(result)
+    
