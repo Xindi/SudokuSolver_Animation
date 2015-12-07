@@ -35,6 +35,32 @@ class test:
             result = []
             simulated_annealing(board, 3, result)
             return json.dumps(result)
+        if signal == 'load_medium':
+            board = json.dumps(get_medium_board())
+            return board
+        if signal == 'b_medium':
+            board = get_medium_board()
+            result = []
+            brute_force(board, result)
+            return json.dumps(result)
+        if signal == 's_medium':
+            board = get_medium_board()
+            result = []
+            simulated_annealing(board, 3, result)
+            return json.dumps(result)
+        if signal == 'load_hard':
+            board = json.dumps(get_hard_board())
+            return board
+        if signal == 'b_hard':
+            board = get_hard_board()
+            result = []
+            brute_force(board, result)
+            return json.dumps(result)
+        if signal == 's_hard':
+            board = get_hard_board()
+            result = []
+            simulated_annealing(board, 3, result)
+            return json.dumps(result)
         return "..."
 
 if __name__ == "__main__": 
