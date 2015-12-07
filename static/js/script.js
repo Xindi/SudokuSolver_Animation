@@ -38,18 +38,25 @@ jQuery(document).ready(function(){
             url: '/test',
             dataType: 'json',
             success: function(data) {
-                jQuery.each(data, function(key,item) {    
+                var c = 0;
+                jQuery.each(data, function(key,item) { 
+                    c++;
                     var count = 1;
-                    jQuery.each(item, function(key,value) {
+                    setInterval(function(){
+                    jQuery.each(item, function(key,value) { 
                         for(var i in value){
-                            if(val != '.'){
-                                setTimeout(addToDom(value[i]), 200);
+                            if(value[i] != '.'){
+                                addToDom(value[i], count);
                             }
-                            count++; 
-                        }                   
+                            else{
+                                addToDom('', count);
+                            }
+                            count++;
+                        } 
                     });
-                    
+                    }, 100*c);
                 });
+                
             },
         });
         return false;
@@ -63,16 +70,23 @@ jQuery(document).ready(function(){
             url: '/test',
             dataType:'json',
             success: function(data) {
-                jQuery.each(data, function(key,item) {
-                   var count = 1;
-                   jQuery.each(item, function(key,value) {
+                var c;
+                jQuery.each(data, function(key,item) { 
+                    c++;
+                    var count = 1;
+                    setInterval(function(){
+                    jQuery.each(item, function(key,value) { 
                         for(var i in value){
-                            if(val != '.'){
-                                setTimeout(addToDom(value[i]), 200);
+                            if(value[i] != '.'){
+                                addToDom(value[i], count);
                             }
-                            count++; 
-                        }                   
+                            else{
+                                addToDom('', count);
+                            }
+                            count++;
+                        } 
                     });
+                    }, 100*c);
                 });
             },
         });

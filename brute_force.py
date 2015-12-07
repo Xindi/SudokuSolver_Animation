@@ -1,4 +1,5 @@
 from copy import deepcopy
+import json
 
 def brute_force(board, states):
     dimension = len(board)
