@@ -70,7 +70,7 @@ jQuery(document).ready(function(){
             url: '/test',
             dataType:'json',
             success: function(data) {
-                var c;
+                var c = 0;
                 jQuery.each(data, function(key,item) { 
                     c++;
                     var count = 1;
