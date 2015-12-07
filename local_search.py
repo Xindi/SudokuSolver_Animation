@@ -20,15 +20,15 @@ def init_board_to_dict(init_board):
 def is_init_populated(init_dict, row, col):
     return tuple((row,col)) in init_dict
 
-def random_populate(board, s_dim):
+def random_populate(board, s_dim, init_dict):
     rSquares = len(board) / s_dim
     cSquares = len(board) / s_dim
     for i in range(0, rSquares):
         for j in range(0, cSquares):
-            random_subsquare(board, s_dim*i, s_dim*j, s_dim)
+            random_subsquare(board, s_dim*i, s_dim*j, s_dim, init_dict)
 
 ''' helper for random_populate '''
-def random_subsquare(board, row, col, s_dim):
+def random_subsquare(board, row, col, s_dim, init_dict):
     small_avail = ["1","2","3","4","5","6","7","8","9"]
     large_avail = ["1","2","3","4","5","6","7","8","9", "10",
                    "11","12","13","14","15","16"]
@@ -37,7 +37,7 @@ def random_subsquare(board, row, col, s_dim):
         r = row + i
         for j in range(0, s_dim):
             c = col + j
-            if board[r][c] != ".":
+            if is_init_populated(init_dict, r, c):
                 avail.remove(board[r][c])
 
     for i in range(0, s_dim):
@@ -108,7 +108,10 @@ def get_new_state(board, init_dict, s_dim):
     square = random.randint(0,dim-1)
 
     square_pos = get_square_pos(board, square, s_dim, init_dict)
-    (rowcol1, rowcol2) = random.sample(square_pos, 2)
+    
+    if len(square_pos) < 2:
+        return new_board
+    (rowcol1, rowcol2) = random.sample(square_pos, 2) 
 
     temp = new_board[rowcol1[0]][rowcol1[1]]
     new_board[rowcol1[0]][rowcol1[1]] = new_board[rowcol2[0]][rowcol2[1]]
@@ -121,7 +124,7 @@ def simulated_annealing(board, s_dim, states):
     init_dict = init_board_to_dict(board)
 
     cur_board = deepcopy(board)
-    random_populate(cur_board, s_dim)
+    random_populate(cur_board, s_dim, init_dict)
     best_state = deepcopy(cur_board)
 
     cur_score = get_score(cur_board)
@@ -130,33 +133,45 @@ def simulated_annealing(board, s_dim, states):
 
     cooling_rate = 0.00001
     T = 0.4
-    while count < 400000:
-        new_board = get_new_state(cur_board, init_dict, s_dim)
-        new_score = get_score(new_board)
+    while count < 1000000:
+        try:    
+            #if count % 10000 == 0:
+            #    print cur_score
+            new_board = get_new_state(cur_board, init_dict, s_dim)
+            new_score = get_score(new_board)
+            #print_board(new_board)
+            #print "===================================="
+            if (acceptance_prob(cur_score, new_score, T) > random.random()):
+                cur_board = new_board
+                cur_score = new_score
+                states.append( deepcopy(new_board) )
+            
+            if cur_score < best_score:
+                best_state = deepcopy(cur_board)
+                best_score = cur_score
 
-        if (acceptance_prob(cur_score, new_score, T) > random.random()):
-            cur_board = new_board
-            cur_score = new_score
-            states.append( deepcopy(new_board) )
-        
-        if cur_score < best_score:
-            best_state = deepcopy(cur_board)
-            best_score = cur_score
+            if new_score == -2*dim*dim:
+                cur_board = new_board
+                break
 
-        if new_score == -2*dim*dim:
-            cur_board = new_board
-            break
-
-        count += 1
-        T = T * (1-cooling_rate)
-
+            count += 1
+            T = T * (1-cooling_rate)        
+        except:
+            return None
+    print count
     return best_state if best_score == -2*dim*dim else None
 
 if __name__ == '__main__':
-    board = easy_boards[0]
-    print_board(board)
-    init_dict = init_board_to_dict(board)
+    board = [['.', '8', '6', '.', '.', '2', '4', '.', '.'],
+            ['9', '5', '.', '.', '7', '4', '.', '2', '8'],
+            ['.', '.', '7', '.', '.', '.', '.', '9', '.'],
+            ['8', '.', '2', '.', '.', '.', '.', '4', '3'],
+            ['.', '.', '.', '.', '.', '5', '.', '.', '.'],
+            ['.', '.', '.', '2', '8', '.', '7', '.', '.'],
+            ['.', '6', '8', '.', '.', '.', '.', '1', '7'],
+            ['7', '4', '.', '1', '.', '9', '.', '3', '.'],
+            ['3', '.', '.', '.', '.', '.', '6', '5', '4']
+            ]
     states = []
     result = simulated_annealing(board, 3, states)
-    print_board(result)
-    
+

@@ -1,7 +1,8 @@
 jQuery(document).ready(function(){
     'use strict';
     jQuery('.load').click(function(){   
-        var val = jQuery('.load').attr('id');
+        var val = jQuery(this).attr('id');
+
         jQuery.ajax({
             type: 'POST',
             data: {'action' : val},
@@ -31,7 +32,7 @@ jQuery(document).ready(function(){
     }
 
     jQuery('.bf').click(function(){
-        var val = jQuery('.bf').attr('id');
+        var val = jQuery(this).attr('id');
         jQuery.ajax({
             type: 'POST',
             data: {'action' : val},
@@ -63,7 +64,7 @@ jQuery(document).ready(function(){
     });
 
     jQuery('.sa').click(function(){
-        var val = jQuery('.sa').attr('id');
+        var val = jQuery(this).attr('id');
         jQuery.ajax({
             type: 'POST',
             data: {'action' : val},

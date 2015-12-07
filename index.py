@@ -23,6 +23,7 @@ class test:
     def POST(self):
         signal = web.input().action
         if signal == 'load_easy':
+            print "easy"
             board = json.dumps(get_easy_board())
             return board
         if signal == 'b_easy':
