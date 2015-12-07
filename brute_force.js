@@ -1,3 +1,4 @@
+"use strict";
 var easy_boards = [
     [   [".",".","6",".",".",".",".",".","."],
         ["8",".",".",".","7",".","1","3","5"],
@@ -11,12 +12,12 @@ var easy_boards = [
     ],
     [],
     []
-]
+];
 
-function brute_force(board) {
+var brute_force = function(board) {
     var dimension = board.length;
-    for (row = 0; row < dimension; row++) { 
-    	for (col = 0; col < dimension; col++) {
+    for (var row = 0; row < dimension; row++) { 
+    	for (var col = 0; col < dimension; col++) {
     		if (board[row][col] == ".") {
     			for (var i = 1; i < dimension+1; i++) {
     				board[row][col] = i.toString();
@@ -30,13 +31,13 @@ function brute_force(board) {
     	}
 	}
 	return true;
-}
+};
 
 function board_is_valid(board, row, col) {
 	var dimension = board.length;
 	// check row
-	for (var i = 0; i < dimension; i++) {
-		if( i != col && board[row][i] == board[row][col] ) {
+	for (var iii = 0; iii < dimension; iii++) {
+		if( iii != col && board[row][iii] == board[row][col] ) {
 			return false;
 		}
 	}
@@ -51,9 +52,9 @@ function board_is_valid(board, row, col) {
 	// check square
 	var rSquare = row / 3;
 	var cSquare = col / 3;
-	for (var i = rSquare*3; i < rSquare*3+3; i++) {
-		for (var j = rSquare*3; j < rSquare*3+3; j++) {
-			if( !(i == row && j == col) && (board[i][j] == board[row][col]) ) {
+	for (var ii = rSquare*3; ii < rSquare*3+3; ii++) {
+		for (var jj = cSquare*3; jj < cSquare*3+3; jj++) {
+			if( !(ii == row && jj == col) && (board[ii][jj] == board[row][col]) ) {
 				return false;
 			}
 		}

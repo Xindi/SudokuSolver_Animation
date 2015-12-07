@@ -11,7 +11,7 @@ jQuery(document).ready(function(){
                 var count = 1;
                 jQuery.each(data, function(key,value) {
                     if(value != '.'){
-                        var header = '#cell' + count;
+                        var header = '.cell' + count;
                         jQuery(header).html(value);
                         jQuery(header).addClass('ini');
                     }
@@ -37,7 +37,7 @@ jQuery(document).ready(function(){
                         var count = 1;
                         jQuery.each(item, function(key,value) {
                             if(value != '.'){
-                                var header = '#cell' + count;
+                                var header = '.cell' + count;
                                 jQuery(header).html(value);
                             }
                             count++;                    
@@ -65,7 +65,7 @@ jQuery(document).ready(function(){
                         var count = 1;
                         jQuery.each(item, function(key,value) {
                             if(value != '.'){
-                                var header = '#cell' + count;
+                                var header = '.cell' + count;
                                 jQuery(header).html(value);
                             }
                             count++;                    
