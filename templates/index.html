@@ -5,7 +5,7 @@ $def with (name)
 <head>
     <title>Sudoku Solver</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-    <!-- <script type="text/javascript" src="script.js"></script> -->
+    <script type="text/javascript" src="static/js/script.js"></script>
     <style>
     table {
         border-collapse: collapse;
@@ -39,9 +39,12 @@ $def with (name)
     .ini {
         color:#0000FF;
     }
+    td{
+        text-align: center;
+    }
     </style>
 
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         jQuery(document).ready(function(){
             jQuery("#load_easy").click(function(){
                 jQuery.get("/test", function(result){
@@ -49,7 +52,7 @@ $def with (name)
                 });
             });
         });
-    </script>
+    </script> -->
 </head>
 
 <body>
