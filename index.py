@@ -28,7 +28,6 @@ class test:
             board = get_easy_board()
             result = []
             brute_force(board, result)
-            print json.dumps(result)
             return json.dumps(result)
         return "..."
 

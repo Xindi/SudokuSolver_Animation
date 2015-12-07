@@ -20,26 +20,29 @@ def init_board_to_dict(init_board):
 def is_init_populated(init_dict, row, col):
     return tuple((row,col)) in init_dict
 
-def random_populate(board):
-    rSquares = len(board) / 3
-    cSquares = len(board) / 3
+def random_populate(board, s_dim):
+    rSquares = len(board) / s_dim
+    cSquares = len(board) / s_dim
     for i in range(0, rSquares):
         for j in range(0, cSquares):
-            random_subsquare(board, 3*i, 3*j)
+            random_subsquare(board, s_dim*i, s_dim*j, s_dim)
 
 ''' helper for random_populate '''
-def random_subsquare(board, row, col):
-    avail = ["1","2","3","4","5","6","7","8","9"]
-    for i in range(0, 3):
+def random_subsquare(board, row, col, s_dim):
+    small_avail = ["1","2","3","4","5","6","7","8","9"]
+    large_avail = ["1","2","3","4","5","6","7","8","9", "10",
+                   "11","12","13","14","15","16"]
+    avail = small_avail if s_dim == 3 else large_avail
+    for i in range(0, s_dim):
         r = row + i
-        for j in range(0, 3):
+        for j in range(0, s_dim):
             c = col + j
             if board[r][c] != ".":
                 avail.remove(board[r][c])
 
-    for i in range(0, 3):
+    for i in range(0, s_dim):
         r = row + i
-        for j in range(0, 3):
+        for j in range(0, s_dim):
             c = col + j
             if board[r][c] == ".":
                 pick = random.choice(avail)
@@ -90,8 +93,8 @@ def get_square_pos(board, n, s_dim, init_dict):
     result = []
     rStart = (n / s_dim) * s_dim
     cStart = (n % s_dim) * s_dim
-    for row in range(rStart, rStart+3):
-        for col in range(cStart, cStart+3):
+    for row in range(rStart, rStart+s_dim):
+        for col in range(cStart, cStart+s_dim):
             if not is_init_populated(init_dict, row, col):
                 result.append(tuple((row, col)))
     return result
@@ -102,7 +105,7 @@ state, and swap the values of the two positions '''
 def get_new_state(board, init_dict, s_dim):
     new_board = deepcopy(board)
     dim = len(board)
-    square = random.randint(0,8)
+    square = random.randint(0,dim-1)
 
     square_pos = get_square_pos(board, square, s_dim, init_dict)
     (rowcol1, rowcol2) = random.sample(square_pos, 2)
@@ -118,7 +121,7 @@ def simulated_annealing(board, s_dim, states):
     init_dict = init_board_to_dict(board)
 
     cur_board = deepcopy(board)
-    random_populate(cur_board)
+    random_populate(cur_board, s_dim)
     best_state = deepcopy(cur_board)
 
     cur_score = get_score(cur_board)
@@ -130,7 +133,6 @@ def simulated_annealing(board, s_dim, states):
     while count < 400000:
         new_board = get_new_state(cur_board, init_dict, s_dim)
         new_score = get_score(new_board)
-        delta_S = float(cur_score - new_score)
 
         if (acceptance_prob(cur_score, new_score, T) > random.random()):
             cur_board = new_board
