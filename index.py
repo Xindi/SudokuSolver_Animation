@@ -24,6 +24,11 @@ class test:
         if signal == 'load_easy':
             board = json.dumps(get_easy_board())
             return board
+        if signal == 'b_easy':
+            board = get_easy_board()
+            result = []
+            brute_force(board, result)
+            return json.dumps(result)
         return "..."
 
 if __name__ == "__main__": 

@@ -1,4 +1,5 @@
 from board import *
+from brute_force import *
 import random
 from math import exp
 from copy import deepcopy
@@ -88,26 +89,20 @@ def get_new_state(board, init_dict):
     square = random.randint(0,8)
     lower = square * dim
     upper = (square + 1) * dim - 1
-    print "lower"
-    print lower
-    print "upper"
-    print upper
 
     rand_pos1 = random.randint(lower, upper)
     rowcol1 = divmod(rand_pos1, dim)
     while is_init_populated(init_dict, rowcol1[0], rowcol1[1]):
         rand_pos1 = random.randint(lower, upper)
         rowcol1 = divmod(rand_pos1, dim)
-    print "row col 1"
-    print rand_pos1
+    #print rand_pos1
 
     rand_pos2 = random.randint(lower, upper)
     rowcol2 = divmod(rand_pos2, dim)
     while rand_pos2 == rand_pos1 or is_init_populated(init_dict, rowcol2[0], rowcol2[1]):
         rand_pos2 = random.randint(lower, upper)
         rowcol2 = divmod(rand_pos2, dim)
-    print "row col 2"
-    print rand_pos2
+    #print rand_pos2
 
     temp = new_board[rowcol1[0]][rowcol1[1]]
     new_board[rowcol1[0]][rowcol1[1]] = new_board[rowcol2[0]][rowcol2[1]]
@@ -131,12 +126,13 @@ def simulated_annealing(board):
     cooling_rate = 0.00001
     T = 0.5
     while count < 400000:
-        print T
         new_board = get_new_state(cur_board, init_dict)
         new_score = get_score(new_board)
+        delta_S = float(cur_score - new_score)
         print new_score
 
-        if (acceptance_prob(cur_score, new_score, T) > random.random()):
+        #if (acceptance_prob(cur_score, new_score, T) > random.random()):
+        if (exp((delta_S/T)) - random.random() > 0):
             cur_board = new_board
             cur_score = new_score
         
@@ -157,6 +153,9 @@ def simulated_annealing(board):
 if __name__ == '__main__':
     board = easy_boards[0]
     print_board(board)
-    result = simulated_annealing(board) 
-    print_board(result)
+    # result = simulated_annealing(board) 
+    # print_board(result)
+    result = []
+    brute_force(board, result)
+    print result
 

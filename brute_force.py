@@ -1,12 +1,14 @@
+from copy import deepcopy
 
-def brute_force(board):
+def brute_force(board, states):
     dimension = len(board)
     for row in range(0, dimension):
         for col in range(0, dimension):
             if board[row][col] == '.':
                 for i in range(1, dimension+1):
                     board[row][col] = str(i)
-                    if board_is_valid( board, row, col ) and brute_force( board ):
+                    states.append(deepcopy(board))
+                    if board_is_valid( board, row, col ) and brute_force( board, states ):
                         return True
                     board[row][col] = '.'
                 return False
