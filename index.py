@@ -2,6 +2,7 @@ import web
 import json
 from board import *
 from brute_force import *
+from local_search import *
 
 urls = (
   '/', 'index',
@@ -28,6 +29,11 @@ class test:
             board = get_easy_board()
             result = []
             brute_force(board, result)
+            return json.dumps(result)
+        if signal == 's_easy':
+            board = get_easy_board()
+            result = []
+            simulated_annealing(board, 3, result)
             return json.dumps(result)
         return "..."
 
