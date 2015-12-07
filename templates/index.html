@@ -6,7 +6,6 @@ $def with (name)
     <title>Sudoku Solver</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="script.js"></script>
-    <script type="text/javascript" src="brute_force.js"></script>
     <style>
     table {
         border-collapse: collapse;
@@ -37,11 +36,32 @@ $def with (name)
     table.large tr:nth-of-type(1n) td:nth-of-type(4n){
         border-right: 3px solid #000000;
     }
+    .ini {
+        color:#0000FF;
+    }
     </style>
 </head>
 
 <body>
     <h2 align="center" id = "table">Sudoku Solver 9 x 9</h2>
+    <div align="center">
+        <button type="button" id="load_easy" class="load">Load Easy</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="button" id="load_medium" class="load">Load Medium</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="button" id="load_hard" class="load">Load Hard</button>
+    </div>
+    <br>
+    <div align="center">
+        <button type="button" id="b_easy" class="bf">BruteFroce Easy</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="button" id="b_medium" class="bf">BruteFroce Medium</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="button" id="b_hard" class="bf">BruteFroce Hard</button>
+    </div>
+    <br>
+    <div align="center">
+        <button type="button" id="s_easy" class="sa">Simulated Annealing Easy</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="button" id="s_medium" class="sa">Simulated Annealing Medium</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="button" id="s_hard" class="sa">Simulated Annealing Hard</button>
+    </div>
+    <br><br>
     <table class="small" align="center" border = '1' width="400" height="400">
         <tr id = "line1">
             <td id='cell1'></td>
@@ -149,293 +169,293 @@ $def with (name)
     <h2 align="center" id = "table">Sudoku Solver 16 x 16</h2>
     <table class="large" align="center" border = '1' width="600" height="600">
         <tr id = "line1">
-            <td id='cell1'></td>
-            <td id='cell2'></td>
-            <td id='cell3'></td>
-            <td id='cell4'></td>
-            <td id='cell5'></td>
-            <td id='cell6'></td>
-            <td id='cell7'></td>
-            <td id='cell8'></td>
-            <td id='cell9'></td>
-            <td id='cell10'></td>
-            <td id='cell11'></td>
-            <td id='cell12'></td>
-            <td id='cell13'></td>
-            <td id='cell14'></td>
-            <td id='cell15'></td>
-            <td id='cell16'></td>
+            <td id='lcell1'></td>
+            <td id='lcell2'></td>
+            <td id='lcell3'></td>
+            <td id='lcell4'></td>
+            <td id='lcell5'></td>
+            <td id='lcell6'></td>
+            <td id='lcell7'></td>
+            <td id='lcell8'></td>
+            <td id='lcell9'></td>
+            <td id='lcell10'></td>
+            <td id='lcell11'></td>
+            <td id='lcell12'></td>
+            <td id='lell13'></td>
+            <td id='lell14'></td>
+            <td id='lell15'></td>
+            <td id='lell16'></td>
         </tr>
         <tr id = "line2">
-            <td id='cell17'></td>
-            <td id='cell18'></td>
-            <td id='cell19'></td>
-            <td id='cell20'></td>
-            <td id='cell21'></td>
-            <td id='cell22'></td>
-            <td id='cell23'></td>
-            <td id='cell24'></td>
-            <td id='cell25'></td>
-            <td id='cell26'></td>
-            <td id='cell27'></td>
-            <td id='cell28'></td>
-            <td id='cell29'></td>
-            <td id='cell30'></td>
-            <td id='cell31'></td>
-            <td id='cell32'></td>
+            <td id='lcell17'></td>
+            <td id='lcell18'></td>
+            <td id='lcell19'></td>
+            <td id='lcell20'></td>
+            <td id='lcell21'></td>
+            <td id='lcell22'></td>
+            <td id='lcell23'></td>
+            <td id='lcell24'></td>
+            <td id='lcell25'></td>
+            <td id='lcell26'></td>
+            <td id='lcell27'></td>
+            <td id='lcell28'></td>
+            <td id='lcell29'></td>
+            <td id='lcell30'></td>
+            <td id='lcell31'></td>
+            <td id='lcell32'></td>
         </tr>
         <tr id = "line3">
-            <td id='cell33'></td>
-            <td id='cell34'></td>
-            <td id='cell35'></td>
-            <td id='cell36'></td>
-            <td id='cell37'></td>
-            <td id='cell38'></td>
-            <td id='cell39'></td>
-            <td id='cell40'></td>
-            <td id='cell41'></td>
-            <td id='cell42'></td>
-            <td id='cell43'></td>
-            <td id='cell44'></td>
-            <td id='cell45'></td>
-            <td id='cell46'></td>
-            <td id='cell47'></td>
-            <td id='cell48'></td>
+            <td id='lcell33'></td>
+            <td id='lcell34'></td>
+            <td id='lcell35'></td>
+            <td id='lcell36'></td>
+            <td id='lcell37'></td>
+            <td id='lcell38'></td>
+            <td id='lcell39'></td>
+            <td id='lcell40'></td>
+            <td id='lcell41'></td>
+            <td id='lcell42'></td>
+            <td id='lcell43'></td>
+            <td id='lcell44'></td>
+            <td id='lcell45'></td>
+            <td id='lcell46'></td>
+            <td id='lcell47'></td>
+            <td id='lcell48'></td>
         </tr>
 
-        <tr id = "line4" class="separate">
-            <td id='cell49'></td>
-            <td id='cell50'></td>
-            <td id='cell51'></td>
-            <td id='cell52'></td>
-            <td id='cell53'></td>
-            <td id='cell54'></td>
-            <td id='cell55'></td>
-            <td id='cell56'></td>
-            <td id='cell57'></td>
-            <td id='cell58'></td>
-            <td id='cell59'></td>
-            <td id='cell60'></td>
-            <td id='cell61'></td>
-            <td id='cell62'></td>
-            <td id='cell63'></td>
-            <td id='cell64'></td>
+        <tr id = "line4">
+            <td id='lcell49'></td>
+            <td id='lcell50'></td>
+            <td id='lcell51'></td>
+            <td id='lcell52'></td>
+            <td id='lcell53'></td>
+            <td id='lcell54'></td>
+            <td id='lcell55'></td>
+            <td id='lcell56'></td>
+            <td id='lcell57'></td>
+            <td id='lcell58'></td>
+            <td id='lcell59'></td>
+            <td id='lcell60'></td>
+            <td id='lcell61'></td>
+            <td id='lcell62'></td>
+            <td id='lcell63'></td>
+            <td id='lcell64'></td>
         </tr>
         <tr id = "line5">
-            <td id='cell65'></td>
-            <td id='cell66'></td>
-            <td id='cell67'></td>
-            <td id='cell68'></td>
-            <td id='cell69'></td>
-            <td id='cell70'></td>
-            <td id='cell71'></td>
-            <td id='cell72'></td>
-            <td id='cell73'></td>
-            <td id='cell74'></td>
-            <td id='cell75'></td>
-            <td id='cell76'></td>
-            <td id='cell77'></td>
-            <td id='cell78'></td>
-            <td id='cell79'></td>
-            <td id='cell80'></td>
+            <td id='lcell65'></td>
+            <td id='lcell66'></td>
+            <td id='lcell67'></td>
+            <td id='lcell68'></td>
+            <td id='lcell69'></td>
+            <td id='lcell70'></td>
+            <td id='lcell71'></td>
+            <td id='lcell72'></td>
+            <td id='lcell73'></td>
+            <td id='lcell74'></td>
+            <td id='lcell75'></td>
+            <td id='lcell76'></td>
+            <td id='lcell77'></td>
+            <td id='lcell78'></td>
+            <td id='lcell79'></td>
+            <td id='lcell80'></td>
         </tr>
         <tr id = "line6">
-            <td id='cell81'></td>
-            <td id='cell82'></td>
-            <td id='cell83'></td>
-            <td id='cell84'></td>
-            <td id='cell85'></td>
-            <td id='cell86'></td>
-            <td id='cell87'></td>
-            <td id='cell88'></td>
-            <td id='cell89'></td>
-            <td id='cell90'></td>
-            <td id='cell91'></td>
-            <td id='cell92'></td>
-            <td id='cell93'></td>
-            <td id='cell94'></td>
-            <td id='cell95'></td>
-            <td id='cell96'></td>
+            <td id='lcell81'></td>
+            <td id='lcell82'></td>
+            <td id='lcell83'></td>
+            <td id='lcell84'></td>
+            <td id='lcell85'></td>
+            <td id='lcell86'></td>
+            <td id='lcell87'></td>
+            <td id='lcell88'></td>
+            <td id='lcell89'></td>
+            <td id='lcell90'></td>
+            <td id='lcell91'></td>
+            <td id='lcell92'></td>
+            <td id='lcell93'></td>
+            <td id='lcell94'></td>
+            <td id='lcell95'></td>
+            <td id='lcell96'></td>
         </tr>
         <tr id = "line7">
-            <td id='cell97'></td>
-            <td id='cell98'></td>
-            <td id='cell99'></td>
-            <td id='cell100'></td>
-            <td id='cell101'></td>
-            <td id='cell102'></td>
-            <td id='cell103'></td>
-            <td id='cell104'></td>
-            <td id='cell105'></td>
-            <td id='cell106'></td>
-            <td id='cell107'></td>
-            <td id='cell108'></td>
-            <td id='cell109'></td>
-            <td id='cell110'></td>
-            <td id='cell111'></td>
-            <td id='cell112'></td>
+            <td id='lcell97'></td>
+            <td id='lcell98'></td>
+            <td id='lcell99'></td>
+            <td id='lcell100'></td>
+            <td id='lcell101'></td>
+            <td id='lcell102'></td>
+            <td id='lcell103'></td>
+            <td id='lcell104'></td>
+            <td id='lcell105'></td>
+            <td id='lcell106'></td>
+            <td id='lcell107'></td>
+            <td id='lcell108'></td>
+            <td id='lcell109'></td>
+            <td id='lcell110'></td>
+            <td id='lcell111'></td>
+            <td id='lcell112'></td>
         </tr>
         <tr id = "line8">
-            <td id='cell113'></td>
-            <td id='cell114'></td>
-            <td id='cell115'></td>
-            <td id='cell116'></td>
-            <td id='cell117'></td>
-            <td id='cell118'></td>
-            <td id='cell119'></td>
-            <td id='cell120'></td>
-            <td id='cell121'></td>
-            <td id='cell122'></td>
-            <td id='cell123'></td>
-            <td id='cell124'></td>
-            <td id='cell125'></td>
-            <td id='cell126'></td>
-            <td id='cell127'></td>
-            <td id='cell128'></td>
+            <td id='lcell113'></td>
+            <td id='lcell114'></td>
+            <td id='lcell115'></td>
+            <td id='lcell116'></td>
+            <td id='lcell117'></td>
+            <td id='lcell118'></td>
+            <td id='lcell119'></td>
+            <td id='lcell120'></td>
+            <td id='lcell121'></td>
+            <td id='lcell122'></td>
+            <td id='lcell123'></td>
+            <td id='lcell124'></td>
+            <td id='lcell125'></td>
+            <td id='lcell126'></td>
+            <td id='lcell127'></td>
+            <td id='lcell128'></td>
         </tr>
         <tr id = "line9">
-            <td id='cell129'></td>
-            <td id='cell130'></td>
-            <td id='cell131'></td>
-            <td id='cell132'></td>
-            <td id='cell133'></td>
-            <td id='cell134'></td>
-            <td id='cell135'></td>
-            <td id='cell136'></td>
-            <td id='cell137'></td>
-            <td id='cell138'></td>
-            <td id='cell139'></td>
-            <td id='cell140'></td>
-            <td id='cell141'></td>
-            <td id='cell142'></td>
-            <td id='cell143'></td>
-            <td id='cell144'></td>
+            <td id='lcell129'></td>
+            <td id='lcell130'></td>
+            <td id='lcell131'></td>
+            <td id='lcell132'></td>
+            <td id='lcell133'></td>
+            <td id='lcell134'></td>
+            <td id='lcell135'></td>
+            <td id='lcell136'></td>
+            <td id='lcell137'></td>
+            <td id='lcell138'></td>
+            <td id='lcell139'></td>
+            <td id='lcell140'></td>
+            <td id='lcell141'></td>
+            <td id='lcell142'></td>
+            <td id='lcell143'></td>
+            <td id='lcell144'></td>
         </tr>
         <tr id = "line10">
-            <td id='cell145'></td>
-            <td id='cell146'></td>
-            <td id='cell147'></td>
-            <td id='cell148'></td>
-            <td id='cell149'></td>
-            <td id='cell150'></td>
-            <td id='cell151'></td>
-            <td id='cell152'></td>
-            <td id='cell153'></td>
-            <td id='cell154'></td>
-            <td id='cell155'></td>
-            <td id='cell156'></td>
-            <td id='cell157'></td>
-            <td id='cell158'></td>
-            <td id='cell159'></td>
-            <td id='cell160'></td>
+            <td id='lcell145'></td>
+            <td id='lcell146'></td>
+            <td id='lcell147'></td>
+            <td id='lcell148'></td>
+            <td id='lcell149'></td>
+            <td id='lcell150'></td>
+            <td id='lcell151'></td>
+            <td id='lcell152'></td>
+            <td id='lcell153'></td>
+            <td id='lcell154'></td>
+            <td id='lcell155'></td>
+            <td id='lcell156'></td>
+            <td id='lcell157'></td>
+            <td id='lcell158'></td>
+            <td id='lcell159'></td>
+            <td id='lcell160'></td>
         </tr>
         <tr id = "line11">
-            <td id='cell161'></td>
-            <td id='cell162'></td>
-            <td id='cell163'></td>
-            <td id='cell164'></td>
-            <td id='cell165'></td>
-            <td id='cell166'></td>
-            <td id='cell167'></td>
-            <td id='cell168'></td>
-            <td id='cell169'></td>
-            <td id='cell170'></td>
-            <td id='cell171'></td>
-            <td id='cell172'></td>
-            <td id='cell173'></td>
-            <td id='cell174'></td>
-            <td id='cell175'></td>
-            <td id='cell176'></td>
+            <td id='lcell161'></td>
+            <td id='lcell162'></td>
+            <td id='lcell163'></td>
+            <td id='lcell164'></td>
+            <td id='lcell165'></td>
+            <td id='lcell166'></td>
+            <td id='lcell167'></td>
+            <td id='lcell168'></td>
+            <td id='lcell169'></td>
+            <td id='lcell170'></td>
+            <td id='lcell171'></td>
+            <td id='lcell172'></td>
+            <td id='lcell173'></td>
+            <td id='lcell174'></td>
+            <td id='lcell175'></td>
+            <td id='lcell176'></td>
         </tr>
         <tr id = "line12">
-            <td id='cell177'></td>
-            <td id='cell178'></td>
-            <td id='cell179'></td>
-            <td id='cell180'></td>
-            <td id='cell181'></td>
-            <td id='cell182'></td>
-            <td id='cell183'></td>
-            <td id='cell184'></td>
-            <td id='cell185'></td>
-            <td id='cell186'></td>
-            <td id='cell187'></td>
-            <td id='cell188'></td>
-            <td id='cell189'></td>
-            <td id='cell190'></td>
-            <td id='cell191'></td>
-            <td id='cell192'></td>
+            <td id='lcell177'></td>
+            <td id='lcell178'></td>
+            <td id='lcell179'></td>
+            <td id='lcell180'></td>
+            <td id='lcell181'></td>
+            <td id='lcell182'></td>
+            <td id='lcell183'></td>
+            <td id='lcell184'></td>
+            <td id='lcell185'></td>
+            <td id='lcell186'></td>
+            <td id='lcell187'></td>
+            <td id='lcell188'></td>
+            <td id='lcell189'></td>
+            <td id='lcell190'></td>
+            <td id='lcell191'></td>
+            <td id='lcell192'></td>
         </tr>
         <tr id = "line13">
-            <td id='cell193'></td>
-            <td id='cell194'></td>
-            <td id='cell195'></td>
-            <td id='cell196'></td>
-            <td id='cell197'></td>
-            <td id='cell198'></td>
-            <td id='cell199'></td>
-            <td id='cell200'></td>
-            <td id='cell201'></td>
-            <td id='cell202'></td>
-            <td id='cell203'></td>
-            <td id='cell204'></td>
-            <td id='cell205'></td>
-            <td id='cell206'></td>
-            <td id='cell207'></td>
-            <td id='cell208'></td>
+            <td id='lcell193'></td>
+            <td id='lcell194'></td>
+            <td id='lcell195'></td>
+            <td id='lcell196'></td>
+            <td id='lcell197'></td>
+            <td id='lcell198'></td>
+            <td id='lcell199'></td>
+            <td id='lcell200'></td>
+            <td id='lcell201'></td>
+            <td id='lcell202'></td>
+            <td id='lcell203'></td>
+            <td id='lcell204'></td>
+            <td id='lcell205'></td>
+            <td id='lcell206'></td>
+            <td id='lcell207'></td>
+            <td id='lcell208'></td>
         </tr>
         <tr id = "line14">
-            <td id='cell209'></td>
-            <td id='cell210'></td>
-            <td id='cell211'></td>
-            <td id='cell212'></td>
-            <td id='cell213'></td>
-            <td id='cell214'></td>
-            <td id='cell215'></td>
-            <td id='cell216'></td>
-            <td id='cell217'></td>
-            <td id='cell218'></td>
-            <td id='cell219'></td>
-            <td id='cell220'></td>
-            <td id='cell221'></td>
-            <td id='cell222'></td>
-            <td id='cell223'></td>
-            <td id='cell224'></td>
+            <td id='lcell209'></td>
+            <td id='lcell210'></td>
+            <td id='lcell211'></td>
+            <td id='lcell212'></td>
+            <td id='lcell213'></td>
+            <td id='lcell214'></td>
+            <td id='lcell215'></td>
+            <td id='lcell216'></td>
+            <td id='lcell217'></td>
+            <td id='lcell218'></td>
+            <td id='lcell219'></td>
+            <td id='lcell220'></td>
+            <td id='lcell221'></td>
+            <td id='lcell222'></td>
+            <td id='lcell223'></td>
+            <td id='lcell224'></td>
         </tr>
         <tr id = "line15">
-            <td id='cell225'></td>
-            <td id='cell226'></td>
-            <td id='cell227'></td>
-            <td id='cell228'></td>
-            <td id='cell229'></td>
-            <td id='cell230'></td>
-            <td id='cell231'></td>
-            <td id='cell232'></td>
-            <td id='cell233'></td>
-            <td id='cell234'></td>
-            <td id='cell235'></td>
-            <td id='cell236'></td>
-            <td id='cell237'></td>
-            <td id='cell238'></td>
-            <td id='cell239'></td>
-            <td id='cell240'></td>
+            <td id='lcell225'></td>
+            <td id='lcell226'></td>
+            <td id='lcell227'></td>
+            <td id='lcell228'></td>
+            <td id='lcell229'></td>
+            <td id='lcell230'></td>
+            <td id='lcell231'></td>
+            <td id='lcell232'></td>
+            <td id='lcell233'></td>
+            <td id='lcell234'></td>
+            <td id='lcell235'></td>
+            <td id='lcell236'></td>
+            <td id='lcell237'></td>
+            <td id='lcell238'></td>
+            <td id='lcell239'></td>
+            <td id='lcell240'></td>
         </tr>
         <tr id = "line14">
-            <td id='cell241'></td>
-            <td id='cell242'></td>
-            <td id='cell243'></td>
-            <td id='cell244'></td>
-            <td id='cell245'></td>
-            <td id='cell246'></td>
-            <td id='cell247'></td>
-            <td id='cell248'></td>
-            <td id='cell249'></td>
-            <td id='cell250'></td>
-            <td id='cell251'></td>
-            <td id='cell252'></td>
-            <td id='cell253'></td>
-            <td id='cell254'></td>
-            <td id='cell255'></td>
-            <td id='cell256'></td>
+            <td id='lcell241'></td>
+            <td id='lcell242'></td>
+            <td id='lcell243'></td>
+            <td id='lcell244'></td>
+            <td id='lcell245'></td>
+            <td id='lcell246'></td>
+            <td id='lcell247'></td>
+            <td id='lcell248'></td>
+            <td id='lcell249'></td>
+            <td id='lcell250'></td>
+            <td id='lcell251'></td>
+            <td id='lcell252'></td>
+            <td id='lcell253'></td>
+            <td id='lcell254'></td>
+            <td id='lcell255'></td>
+            <td id='lcell256'></td>
         </tr>
     </table>
 </body>
