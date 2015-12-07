@@ -6,16 +6,18 @@ jQuery(document).ready(function(){
             type: 'POST',
             data: {'action' : val},
             url: '/test',
+            dataType: 'json',
             success: function(data) {
-                alert(data);
                 var count = 1;
                 jQuery.each(data, function(key,value) {
-                    if(value != '.'){
-                        var header = '.cell' + count;
-                        jQuery(header).html(value);
-                        jQuery(header).addClass('ini');
+                    for(var i in value){
+                        if(value[i] != '.'){
+                            var header = '#cell' + count;
+                            jQuery(header).html(value[i]);
+                            jQuery(header).addClass('ini');
+                        }
+                        count++;
                     }
-                    count++;
                 });
             },
         });
@@ -23,27 +25,29 @@ jQuery(document).ready(function(){
     });
 
 
+    function addToDom(val, count){
+        var header = '#cell' + count;
+        jQuery(header).html(val);
+    }
+
     jQuery('.bf').click(function(){
         var val = jQuery('.bf').attr('id');
         jQuery.ajax({
             type: 'POST',
             data: {'action' : val},
             url: '/test',
+            dataType: 'json',
             success: function(data) {
-                jQuery.each(data, function(key,item) {
-
-                    setTimeout(function(){ 
-                        
-                        var count = 1;
-                        jQuery.each(item, function(key,value) {
-                            if(value != '.'){
-                                var header = '.cell' + count;
-                                jQuery(header).html(value);
+                jQuery.each(data, function(key,item) {    
+                    var count = 1;
+                    jQuery.each(item, function(key,value) {
+                        for(var i in value){
+                            if(val != '.'){
+                                setTimeout(addToDom(value[i]), 200);
                             }
-                            count++;                    
-                        });
-
-                    },500);
+                            count++; 
+                        }                   
+                    });
                     
                 });
             },
@@ -57,22 +61,18 @@ jQuery(document).ready(function(){
             type: 'POST',
             data: {'action' : val},
             url: '/test',
+            dataType:'json',
             success: function(data) {
                 jQuery.each(data, function(key,item) {
-                    
-                    setTimeout(function(){ 
-                        
-                        var count = 1;
-                        jQuery.each(item, function(key,value) {
-                            if(value != '.'){
-                                var header = '.cell' + count;
-                                jQuery(header).html(value);
+                   var count = 1;
+                   jQuery.each(item, function(key,value) {
+                        for(var i in value){
+                            if(val != '.'){
+                                setTimeout(addToDom(value[i]), 200);
                             }
-                            count++;                    
-                        });
-
-                    },500);
-                    
+                            count++; 
+                        }                   
+                    });
                 });
             },
         });

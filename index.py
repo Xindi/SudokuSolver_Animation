@@ -1,4 +1,7 @@
 import web
+import json
+from board import *
+from brute_force import *
 
 urls = (
   '/', 'index',
@@ -19,7 +22,8 @@ class test:
     def POST(self):
         signal = web.input().action
         if signal == 'load_easy':
-            return "hahaha"
+            board = json.dumps(get_easy_board())
+            return board
         return "..."
 
 if __name__ == "__main__": 
